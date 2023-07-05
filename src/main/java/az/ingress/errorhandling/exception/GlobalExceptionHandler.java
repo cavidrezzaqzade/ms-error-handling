@@ -1,6 +1,5 @@
 package az.ingress.errorhandling.exception;
 
-import az.ingress.errorhandling.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -17,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,9 +35,19 @@ public class GlobalExceptionHandler extends DefaultErrorAttributes {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralException(Exception ex, WebRequest request) {
-        log.error("General Exception handler exception -> {}", ex.getMessage());
-        return MessageResponse.response(Errors.INTERNAL_SERVER_ERROR.getMessage(), ofType(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(),
-                Errors.INTERNAL_SERVER_ERROR.getMessage(), Collections.EMPTY_LIST), HttpStatus.INTERNAL_SERVER_ERROR);
+        Locale.setDefault(new Locale("es", "ES"));
+        System.out.println(Locale.getDefault().getCountry());
+        log.error("General Exception handler exception -> {}", ex.getLocalizedMessage());
+        String localizedMessage = messageSource.getMessage(ex.getClass().getName(),
+                new Object[]{}, LocaleContextHolder.getLocale());
+
+        return ofType(
+                request,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                localizedMessage,
+                Errors.INTERNAL_SERVER_ERROR.getKey(),
+                Collections.EMPTY_LIST
+            );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
