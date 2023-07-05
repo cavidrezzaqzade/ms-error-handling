@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public enum Errors implements ErrorResponse {
     DATA_NOT_FOUND( "DATA_NOT_FOUND", HttpStatus.NOT_FOUND, "the data was not found with this id-{id}"),
-    INTERNAL_SERVER_ERROR( "INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "unknown error occurred");
+    INTERNAL_SERVER_ERROR( "INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "unknown error occurred"),
+    CLIENT_ERROR("CLIENT_ERROR", HttpStatus.OK, "{message}");
 
     final String key;
     final HttpStatus httpStatus;

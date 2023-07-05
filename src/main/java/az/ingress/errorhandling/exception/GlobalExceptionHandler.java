@@ -38,13 +38,13 @@ public class GlobalExceptionHandler extends DefaultErrorAttributes {
         Locale.setDefault(new Locale("es", "ES"));
         System.out.println(Locale.getDefault().getCountry());
         log.error("General Exception handler exception -> {}", ex.getLocalizedMessage());
-        String localizedMessage = messageSource.getMessage(ex.getClass().getName(),
-                new Object[]{}, LocaleContextHolder.getLocale());
+//        String localizedMessage = messageSource.getMessage(ex.getClass().getName(),
+//                new Object[]{}, LocaleContextHolder.getLocale());
 
         return ofType(
                 request,
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                localizedMessage,
+                /*localizedMessage*/ex.getLocalizedMessage(),
                 Errors.INTERNAL_SERVER_ERROR.getKey(),
                 Collections.EMPTY_LIST
             );
