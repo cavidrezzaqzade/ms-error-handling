@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService{
     @SneakyThrows
     @Override
     public void delete(Long id) {
-        int a = 5 / 0;
         User user = repository.findById(id).orElseThrow(() -> new ApplicationException(Errors.DATA_NOT_FOUND, Map.of("id", id)));
         repository.delete(user);
     }
