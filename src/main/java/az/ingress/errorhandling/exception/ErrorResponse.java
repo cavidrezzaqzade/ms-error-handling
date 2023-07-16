@@ -1,9 +1,19 @@
 package az.ingress.errorhandling.exception;
 
-import org.springframework.http.HttpStatus;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface ErrorResponse {
-    String getKey();
-    String getMessage();
-    HttpStatus getHttpStatus();
+import java.util.List;
+
+/**
+ * @author caci
+ */
+
+@Getter
+@Setter
+@Builder
+public class ErrorResponse {
+    private String message;
+    private List<ConstraintsViolationError> violationErrors;
 }

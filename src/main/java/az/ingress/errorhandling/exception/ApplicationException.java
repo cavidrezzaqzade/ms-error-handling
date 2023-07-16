@@ -11,51 +11,32 @@ import java.util.Map;
 @Slf4j
 public class ApplicationException extends RuntimeException {
 
-    static final long serialVersionUID = 1L;
-
-    private final ErrorResponse errorResponse;
+    private final Response response;
     private final Map<String, Object> messageArguments;
 
-    public ErrorResponse getErrorResponse() {
-        return errorResponse;
+    public Response getErrorResponse() {
+        return response;
     }
 
-    public ApplicationException(ErrorResponse errorResponse, Map<String, Object> messageArguments) {
-        this.errorResponse = errorResponse;
+    public ApplicationException(Response errorResponse, Map<String, Object> messageArguments) {
+        this.response = errorResponse;
         this.messageArguments = messageArguments;
-    }
-
-    public ApplicationException(ErrorResponse errorResponse, Map<String, Object> messageArguments, Throwable cause) {
-        super(cause);
-        this.errorResponse = errorResponse;
-        this.messageArguments = messageArguments;
-    }
-
-    public ApplicationException(ErrorResponse errorResponse) {
-        this.errorResponse = errorResponse;
-        this.messageArguments = Map.of();
-    }
-
-    public ApplicationException(ErrorResponse errorResponse, Throwable cause) {
-        super(cause);
-        this.errorResponse = errorResponse;
-        this.messageArguments = Map.of();
     }
 
     @Override
     public String getMessage() {
-        return messageArguments.isEmpty() ? errorResponse.getMessage() :
-                StringSubstitutor.replace(errorResponse.getMessage(), messageArguments, "{", "}");
+        return messageArguments.isEmpty() ? response.getMessage() :
+                StringSubstitutor.replace(response.getMessage(), messageArguments, "{", "}");
     }
 
     public String getLocalizedMessage(Locale locale, MessageSource messageSource) {
         try {
-            String localizedMessage = messageSource.getMessage(errorResponse.getKey(), new Object[]{}, locale);
+            String localizedMessage = messageSource.getMessage(response.getKey(), new Object[]{}, locale);
             return messageArguments.isEmpty() ? localizedMessage :
                     StringSubstitutor.replace(localizedMessage, messageArguments, "{", "}");
         } catch (NoSuchMessageException exception) {
             log.warn("Please consider adding localized message for key {} and locale {}",
-                    errorResponse.getKey(), locale);
+                    response.getKey(), locale);
         }
         return getMessage();
     }

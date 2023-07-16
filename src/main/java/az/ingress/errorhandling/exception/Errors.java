@@ -2,14 +2,13 @@ package az.ingress.errorhandling.exception;
 
 import org.springframework.http.HttpStatus;
 
-public enum Errors implements ErrorResponse {
-    DATA_NOT_FOUND( "DATA_NOT_FOUND", HttpStatus.NOT_FOUND, "the data was not found with this id-{id}"),
-    INTERNAL_SERVER_ERROR( "INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "unknown error occurred"),
-    CLIENT_ERROR("CLIENT_ERROR", HttpStatus.OK, "{message}");
+public enum Errors implements Response {
+    DATA_NOT_FOUND( "data.not.found", HttpStatus.NOT_FOUND, "bu id-li '{id}' məlumat tapılmadı"),
+    INTERNAL_SERVER_ERROR( "unexpected.error", HttpStatus.INTERNAL_SERVER_ERROR, "daxili server xətası");
 
     final String key;
     final HttpStatus httpStatus;
-    final String message;
+    final String message;//default message
 
     Errors(String key, HttpStatus httpStatus, String message) {
         this.key = key;

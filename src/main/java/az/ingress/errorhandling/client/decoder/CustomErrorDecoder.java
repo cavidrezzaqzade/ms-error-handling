@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.InputStream;
 import java.util.Map;
 

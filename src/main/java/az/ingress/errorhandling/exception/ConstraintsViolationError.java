@@ -3,7 +3,6 @@ package az.ingress.errorhandling.exception;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-
 @Data
 @AllArgsConstructor
 public class ConstraintsViolationError {
