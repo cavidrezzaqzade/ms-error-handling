@@ -2,6 +2,8 @@ package az.ingress.errorhandling.service.feign;
 
 import az.ingress.errorhandling.client.CatFactClient;
 import az.ingress.errorhandling.client.FileManagementClient;
+import az.ingress.errorhandling.exception.Errors;
+import az.ingress.errorhandling.exception.FileFeignClientException;
 import az.ingress.errorhandling.model.client.CatFactDto;
 import az.ingress.errorhandling.model.client.InformationDto;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,15 @@ public class FeignCallImpl implements FeignCall {
 
     @Override
     public String getInfo(String info) {
+
+//        String data;
+//
+//        try {
+//            data = fileClient.getInfo(info);
+//        } catch (FileFeignClientException ex){
+//            throw new FileFeignClientException(Errors.CLIENT_ERROR, 5);
+//        }
+
         return fileClient.getInfo(info);
     }
 }

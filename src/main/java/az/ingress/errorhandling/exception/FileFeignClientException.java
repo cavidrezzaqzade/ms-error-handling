@@ -9,29 +9,20 @@ import java.util.Map;
 
 @Slf4j
 public class FileFeignClientException extends RuntimeException {
-    private final Response errorResponse;
+    private final String message;
     private final int status;
 
-    public Response getErrorResponse() {
-        return errorResponse;
+    public String getMessage() {
+        return message;
     }
 
     public int getStatus() {
         return status;
     }
 
-    public FileFeignClientException(Response errorResponse, int status) {
-        this.errorResponse = errorResponse;
+    public FileFeignClientException(String message, int status) {
+        this.message = message;
         this.status = status;
     }
 
-    public String getLocalizedMessage(Locale locale, MessageSource messageSource) {
-        try {
-            return messageSource.getMessage(errorResponse.getKey(), new Object[]{}, locale);
-        } catch (NoSuchMessageException exception) {
-            log.warn("Please consider adding localized message for key {} and locale {}",
-                    errorResponse.getKey(), locale);
-        }
-        return getMessage();
-    }
 }

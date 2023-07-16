@@ -53,7 +53,7 @@ public class ErrorHandler extends DefaultErrorAttributes {
     public ResponseEntity<ErrorResponse> handleFeign(FileFeignClientException ex) {
         log.error(" FileFeignClientException: ", ex);
 
-        var message = ex.getLocalizedMessage(LocaleContextHolder.getLocale(), messageSource);
+        var message = ex.getMessage();
 
         return new ResponseEntity<>(ErrorResponse.builder()
                 .message(message)

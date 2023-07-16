@@ -29,7 +29,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
         try(InputStream body = response.body().asInputStream()){
             jsonNode = MAPPER_UTIL.map(body, JsonNode.class);
         } catch(Exception e){
-            throw new FileFeignClientException(Errors.CLIENT_ERROR, status);
+            throw new FileFeignClientException(errorMessage, status);
         }
 
         if(jsonNode.has(CODE.getValue()))
@@ -37,6 +37,6 @@ public class CustomErrorDecoder implements ErrorDecoder {
 
         log.error("message: {}, Method: {}", errorMessage, methodKey);
 
-        return new FileFeignClientException(Errors.CLIENT_ERROR, status);
+        return new FileFeignClientException(errorMessage, status);
     }
 }
