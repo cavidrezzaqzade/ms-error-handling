@@ -10,13 +10,19 @@ import java.util.Map;
 @Slf4j
 public class FileFeignClientException extends RuntimeException {
     private final Response errorResponse;
+    private final int status;
 
     public Response getErrorResponse() {
         return errorResponse;
     }
 
-    public FileFeignClientException(Response errorResponse) {
+    public int getStatus() {
+        return status;
+    }
+
+    public FileFeignClientException(Response errorResponse, int status) {
         this.errorResponse = errorResponse;
+        this.status = status;
     }
 
     public String getLocalizedMessage(Locale locale, MessageSource messageSource) {

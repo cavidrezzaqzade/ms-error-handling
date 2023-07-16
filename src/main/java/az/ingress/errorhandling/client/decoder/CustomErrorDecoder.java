@@ -19,7 +19,6 @@ import static az.ingress.errorhandling.client.decoder.JsonNodeFieldName.CODE;
 @Slf4j
 public class CustomErrorDecoder implements ErrorDecoder {
 
-    //TODO: CLIENT_ERROR
     @Override
     public Exception decode(String methodKey, Response response) {
 
@@ -30,7 +29,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
         try(InputStream body = response.body().asInputStream()){
             jsonNode = MAPPER_UTIL.map(body, JsonNode.class);
         } catch(Exception e){
-            throw new FileFeignClientException(Errors.CLIENT_ERROR);
+            throw new FileFeignClientException(Errors.CLIENT_ERROR, status);
         }
 
         if(jsonNode.has(CODE.getValue()))
@@ -38,6 +37,6 @@ public class CustomErrorDecoder implements ErrorDecoder {
 
         log.error("message: {}, Method: {}", errorMessage, methodKey);
 
-        return new FileFeignClientException(Errors.CLIENT_ERROR);
+        return new FileFeignClientException(Errors.CLIENT_ERROR, status);
     }
 }

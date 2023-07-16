@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -46,6 +47,17 @@ public class ErrorHandler extends DefaultErrorAttributes {
         return new ResponseEntity<>(ErrorResponse.builder()
                 .message(message)
                 .build(), ex.getErrorResponse().getHttpStatus());
+    }
+
+    @ExceptionHandler(FileFeignClientException.class)
+    public ResponseEntity<ErrorResponse> handleFeign(FileFeignClientException ex) {
+        log.error(" FileFeignClientException: ", ex);
+
+        var message = ex.getLocalizedMessage(LocaleContextHolder.getLocale(), messageSource);
+
+        return new ResponseEntity<>(ErrorResponse.builder()
+                .message(message)
+                .build(), HttpStatusCode.valueOf(ex.getStatus()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
