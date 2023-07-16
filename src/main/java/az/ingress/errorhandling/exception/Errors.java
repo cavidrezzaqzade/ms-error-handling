@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public enum Errors implements Response {
     DATA_NOT_FOUND( "data.not.found", HttpStatus.NOT_FOUND, "bu id-li '{id}' məlumat tapılmadı"),
-    INTERNAL_SERVER_ERROR( "unexpected.error", HttpStatus.INTERNAL_SERVER_ERROR, "daxili server xətası");
+    INTERNAL_SERVER_ERROR( "unexpected.error", HttpStatus.INTERNAL_SERVER_ERROR, "daxili server xətası"),
+    CLIENT_ERROR("CLIENT_ERROR", HttpStatus.OK, "feign client error");
 
     final String key;
     final HttpStatus httpStatus;
