@@ -12,7 +12,7 @@ public class LocaleMessageSourceConfig {
         ReloadableResourceBundleMessageSource messageSource
                 = new ReloadableResourceBundleMessageSource();
 
-        messageSource.setBasename("classpath:messages");
+        messageSource.setBasename("classpath:errors");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

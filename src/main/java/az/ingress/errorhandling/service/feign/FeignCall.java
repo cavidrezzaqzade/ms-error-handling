@@ -13,7 +13,7 @@ public interface FeignCall {
 
     CatFactDto getCatFact();
 
-    ResponseEntity<?> fileManagement(MultipartFile[] files, InformationDto info);
+    String fileManagement(MultipartFile file, InformationDto info);
 
     String getInfo(String info);
 }
